@@ -1,85 +1,114 @@
-# Sightx-project
+# SightX Project
 
-SightX is a real-time AI surveillance system that monitors video feeds and alerts you when something suspicious happens. It detects people and vehicles, tracks their movements, and flags behaviours like speeding, trespassing, loitering, and sudden running. It also includes an Amber Alert mode that sends instant Telegram notifications when a tracked person goes missing.
+The SightX Project is a system that watches video feeds in time and tells you when something strange happens. It finds people and cars follows them and points out things like speeding going where you are not supposed to hanging around and running quickly. It also has a special mode called Amber Alert that sends a message on Telegram when someone being watched disappears.
 
+What the SightX Project does
 
+- It finds people and cars in video feeds in time using something called YOLOv8 Nano
 
- What it does
-- Detects people and vehicles in real time using YOLOv8 Nano
-- Tracks them across frames with persistent IDs using BotSort
-- Estimates vehicle speed in km/h from pixel displacement
-- Flags anomalies: speed violations, restricted zone intrusions, loitering, sudden running
-- Sends instant Telegram alerts with snapshot evidence when a person disappears (Amber Alert)
-- Saves JPEG snapshots automatically for every alert to the outputs/ folder
-- Generates PDF incident reports with timestamps, alert breakdowns, and evidence photos
-- Lets operators file manual incident reports with scene capture, plate photo, suspect photo, and written description
-- Displays full detection history grouped by date and classified by severity
-- Clean dark-theme desktop interface: animated welcome screen, live camera dashboard, history browser
+- It follows them from one frame to the next and gives them a special ID using BotSort
 
+- It figures out how fast cars are going in kilometers per hour
 
+- It points out things that are not normal: speeding, going into areas that are off limits hanging around and running quickly
 
- How it works
-1. Plug in a camera or place a video file in the videos/ folder
-2. The detection engine runs YOLOv8 on every frame and assigns track IDs via BotSort
-3. The tracker scores each object for speed violations and behavioural anomalies
-4. When an anomaly is detected, the system captures a snapshot, plays a sound alert, and logs the event
-5. For Amber Alerts, a Telegram notification with the evidence photo is dispatched immediately
-6. The operator can browse history, file a manual report, or generate a full PDF forensic report
+- It sends a message on Telegram with a picture when someone disappears, which is called an Amber Alert
 
+- It saves pictures automatically when something strange happens
 
+- It makes reports in PDF format with timestamps, what happened and pictures
 
-Tech stack
-Python 3.10, PyQt5, OpenCV, YOLOv8, BotSort, ReportLab, Telegram Bot API
+- It lets people who use the system make their own reports with pictures and descriptions
 
+- It shows all the things that have happened grouped by date and how serious they are
 
+- It has a simple and easy to use interface with a dark background
 
+How the SightX Project works
 
-Project structure :
+1. You plug in a camera. Put a video file in a special folder
+
+2. The system looks at every frame of the video. Uses YOLOv8 and BotSort to follow people and cars
+
+3. It checks each person or car to see if they are doing something
+
+4. If something strange is found it takes a picture makes a sound and writes it down
+
+5. If someone disappears it sends a message on Telegram with a picture
+
+6. The person using the system can look at what has happened make a report or make a report with all the details
+
+The SightX Project uses a few different tools
+
+Python 3.10, PyQt5, OpenCV, YOLOv8, BotSort, ReportLab and the Telegram Bot API
+
+The files in the SightX Project are organized like this:
+
 ```
+
 sightX/
-├── main.py              Entry point — connects all screens
-├── config.py            Central configuration
-├── detector.py          YOLOv8 detection, BotSort tracking, frame annotation
-├── tracker.py           Speed estimation and behaviour detection
-├── alert.py             Snapshot saving, sound, cooldown, alert log
-├── report.py            PDF report generator
-├── ai_engine.py         AI analysis engine
-├── amber_engine.py      Amber Alert — missing person detection and Telegram
-├── pose_analyzer.py     Human pose estimation
-├── models/              Place yolov8n.pt here
-├── videos/              Place your .mp4 or .avi files here
-├── outputs/             Auto-created — snapshots, logs, and reports saved here
+
+├── main.py              This is the file that starts the system
+
+├── config.py            This file has all the settings for the system
+
+├── detector.py          This file uses YOLOv8 to find people and cars
+
+├── tracker.py           This file follows people and cars and checks for behavior
+
+├── alert.py             This file saves pictures and makes sounds when something strange happens
+
+├── report.py            This file makes reports in PDF format
+
+├── ai_engine.py         This file is the brain of the system. Analyzes the video
+
+├── amber_engine.py      This file is used for the Amber Alert system
+
+├── pose_analyzer.py     This file analyzes how people are standing or moving
+
+├── models/              This is where you put the YOLOv8 files
+
+├── videos/              This is where you put your video files
+
+├── outputs/             This is where the system saves pictures and reports
+
 └── ui/
-    ├── login.py         Login screen (Employee ID + Company Code)
-    ├── welcome.py       Welcome screen with animated sphere and two action buttons
-    ├── dashboard.py     Live camera feed, stat cards, alert history
-    ├── history.py       Detection history grouped by date and severity
-    └── report_dialog.py Paper-style manual incident report form
+
+├── login.py         This is the login screen
+
+├── welcome.py       This is the screen
+
+├── dashboard.py     This is the main screen where you can see what is happening
+
+├── history.py       This is where you can see what has happened in the
+
+└── report_dialog.py This is where you can make a report
+
 ```
 
+To get the SightX Project working on your computer
 
-
-how to make it work on your enviroment ?
-```
-1- git clone https://github.com/ahmedmeskache/Sightx-project.git
-2- cd Sightx-project
-3- pip install torch==2.1.0 torchvision==0.16.0 --index-url https://download.pytorch.org/whl/cpu
-4- pip install numpy==1.26.4
-5- pip install ultralytics PyQt5 opencv-python reportlab requests pyTelegramBotAPI
-6- mkdir models videos outputs
-7- Place `yolov8n.pt` in the `models/` folder, or let it download automatically on first run.
-8- python main.py
 ```
 
+1- Download the SightX Project from GitHub
 
+2- Go into the SightX Project folder
 
-Config:
-Edit `config.py` to set your Telegram bot token, chat IDs, speed limit, restricted zone coordinates, loitering timeout, and file paths.
+3- Install the tools you need: torch, torchvision, numpy, ultralytics, PyQt5 opencv-python, reportlab and pyTelegramBotAPI
 
+4- Make folders for models, videos and outputs
 
+5- Put the YOLOv8 files in the models folder
 
+6- Start the system by running the main.py file
 
-Authors:
+```
+
+To change the settings
+Edit the config.py file to change the Telegram bot token, chat IDs, speed limit and other settings.
+
+the SightX Project :
+
 Meskache Ahmed and Mezouani Oudai Brahim
 Supervised by Dr. Bouslah Ayoub
-University of Badji Mokhtar — Annaba, 2025–2026
+the University of Badji Mokhtar in Annaba and they worked on the project from 2025, to 2026.
