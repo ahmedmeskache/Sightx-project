@@ -1,0 +1,34 @@
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.cpython-*
+
+# Model weights (large files)
+models/*.pt
+models/*.onnx
+
+# Outputs & data
+outputs/
+videos/
+backups/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Reports
+*.pdf
+
+# Config with secrets
+config.py
